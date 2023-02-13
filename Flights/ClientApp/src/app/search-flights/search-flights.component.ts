@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchFlightsComponent implements OnInit {
 
+  searchResult: any = [
+    "American Airlines",
+    "Lufthansa",
+    "Britisch Airways"
+    ]
+
   constructor() { }
 
   ngOnInit(): void {
