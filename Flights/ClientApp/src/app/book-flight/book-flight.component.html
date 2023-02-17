@@ -1,40 +1,86 @@
-<form [formGroup]="form">
-  <div class="container d-grid gap-3" style="max-width: 700px;">
+<h5 class="text-md-center m-5">Book Flight</h5>
 
-    <div class="form-floating">
-      <input (blur)="checkPassenger()" formControlName="email" placeholder="Email" class="form-control" type="text" />
-      <label for="email">Email</label>
+<div class="card-body text-center" style="padding: 20px; background-color:#e5ecf26e">
+  <h6 class="card-title ">{{flight.airline}}</h6>
+  <div class="card-title" style="color: #ff3939">{{flight.remainingNumberOfSeats}} remaining seats</div>
+  <div class="d-grid text-center g-2">
+    <div class="row">
+      <div class="col">
+        <div class="col m-3">
 
-    </div>
-    <div class="d-grid gap-3">
+          <i class="text-primary fas fa-plane-departure" style="font-size: 20px;"></i>
+        </div>
+        <div class="col">
+          <i class="fa-solid fa-location-dot">
+            {{flight.departure?.place}}
+          </i>
 
-      <div class="form-floating">
+        </div>
+        <div class="col m-2">
+          <i class="fa-regular"></i>
+          {{flight.departure?.time | date}}
 
-        <input formControlName="firstName" class="form-control" type="text" id="firstName" placeholder="First Name" />
-        <label class="form-label" for="firstName">First Name</label>
+        </div>
+        <div class="col">
 
+          <i class="fa-regular fa-clock">
+            {{flight.departure?.time | date:'shortTime'}}
+          </i>
+        </div>
       </div>
 
-      <div class="form-floating">
+      <div class="col">
+        <div style="display: flex;">
+          <i class="fa-solid  fa-circle" style="margin-top:51px; font-size: 9px;"></i>
+          <hr style="display:block;width: 100%;margin-top: 55px;">
+          <i class="fas fa-plane" style="margin-top: 48px;"></i>
 
-        <input formControlName="lastName" placeholder="Last Name" class="form-control" id="lastName" type="text" />
-        <label class="form-label" for="lastName">Last Name</label>
+
+        </div>
+        <i class="fa fa-usd" aria-hidden="true">{{flight.price}}</i>
+        <br>
 
       </div>
+      <div class="col">
+        <div class="col m-3">
+          <i class="text-primary fas fa-plane-arrival" style="font-size: 20px;"></i>
 
+        </div>
+        <div class="col">
 
-      <div>
+          <i class="fa-solid fa-location-dot">
+            {{flight.arrival?.place}}
+          </i>
+        </div>
+        <div class="col m-2 text-primary">
+          <i class="fa-regular "></i>
+          {{flight.arrival?.time | date}}
 
-        <input formControlName="isFemale" id="isFemale" class="form-check-input" [value]=true type="radio" />
-        <label class="ms-2 form-check-label" for="isFemale">Female</label>
+        </div>
+        <div class="col">
+          <i class="fa-regular fa-clock">
+            {{flight.arrival?.time | date:'shortTime'}}
+          </i>
+
+        </div>
       </div>
-      <div>
-        <input formControlName="isFemale" id="isFemale" class="form-check-input" [value]=false type="radio" />
-        <label class="ms-2 form-check-label" for="isFemale">Male</label>
-      </div>
-    </div>
-    <div class="d-flex justify-content-center center">
-      <button (click)="register()" type="submit" class="btn btn-primary">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
     </div>
   </div>
-</form>
+</div>
+
+<div class="card-footer d-flex justify-content-center">
+
+  <form [formGroup]="form" (ngSubmit)="book()">
+    <label class="form-label mt-5" for="numberOfSeats">Number of Seats</label>
+    <div class="center input-group">
+
+      <input formControlName="number" type="number" class="form-control" id="numberOfSeats" name="numberOfSeats"
+             placeholder="Number of Seats" />
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-ticket"></i>
+        Book
+      </button>
+    </div>
+  </form>
+
+</div>
