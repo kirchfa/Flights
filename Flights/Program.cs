@@ -1,8 +1,14 @@
 using Microsoft.OpenApi.Models;
 using Flights.Data;
 using Flights.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add db context
+builder.Services.AddDbContext<Entities>(options =>
+options.UseInMemoryDatabase(databaseName: "Flights"),
+ServiceLifetime.Singleton);
 
 // Add services to the container.
 
@@ -12,7 +18,7 @@ builder.Services.AddSwaggerGen(c =>
     c.AddServer(new OpenApiServer
     {
         Description = "Development Server",
-        Url = "https://localhost:7280"
+        Url = "https://localhost:7290"
     });
 
     c.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["action"] + e.ActionDescriptor.RouteValues["controller"]}");
@@ -77,6 +83,8 @@ Flight[] flightsToSeed = new Flight[]
                     random.Next(1, 853))
 };
 entities.Flights.AddRange(flightsToSeed);
+
+entities.SaveChanges();
 
 app.UseCors(builder => builder
 .WithOrigins("*")
